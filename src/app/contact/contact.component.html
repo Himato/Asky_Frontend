@@ -1,0 +1,38 @@
+<div class="container contact-container mt--20">
+  <h3>Contact Us</h3>
+  <p>
+    We would love to hear from you
+  </p>
+  <form class="outer-form">
+    <div class="group">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Subject"
+        name="subject"
+        ngModel
+        #subject="ngModel" >
+    </div>
+    <div class="group">
+      <textarea 
+        class="form-control" 
+        rows="4"
+        placeholder="Email body"
+        name="body"
+        ngModel
+        #body="ngModel" ></textarea>
+    </div>
+    <a 
+      type="button" 
+      class="outer-btn-create btn btn--type-02 mt--20"
+      [href]="'mailto:himato.gamal120@outlook.com?subject=' + subject.value + '&body=' + body.value" >
+      Send an Email
+    </a>
+  </form>
+  <div class="contacts">
+    <p>You can also reach me using:</p>
+    <a href="https://www.facebook.com/himatoooo" target="_blank"><i class="fa fa-facebook"></i></a>
+    <a href="https://www.twitter.com/mesawer0" target="_blank"><i class="fa fa-twitter"></i></a>
+    <a href="https://www.linkedin.com/in/hima-gamal" target="_blank"><i class="fa fa-linkedin"></i></a>
+  </div>
+</div>

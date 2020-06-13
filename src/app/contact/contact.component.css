@@ -1,0 +1,23 @@
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-container h3 {
+  align-self: flex-start;
+}
+
+.contacts p {
+  display: inline;
+}
+
+.contacts a {
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.outer-form {
+  width: 700px;
+  margin-bottom: 20px;
+}

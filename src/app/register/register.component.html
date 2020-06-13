@@ -1,0 +1,99 @@
+<div class="outer-head">
+  <h3>Create a New Unity Account</h3>
+  <p>By singin up you can start posting, replaying to topics, earn badges, favorite, vote topics and many more.
+  </p>
+</div>
+<form class="outer-form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="group">
+        <input 
+        type="name" 
+        class="form-control" 
+        placeholder="First Name"
+        name="firstName"
+        ngModel
+        required
+        minlength="4"
+        maxlength="32"
+        pattern="^[a-zA-Z\s]+$"
+        #firstName="ngModel" >
+        <p class="error-message" *ngIf="firstName.touched && !firstName.valid">Invalid Name</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="group">
+        <input 
+        type="name" 
+        class="form-control" 
+        placeholder="Last Name"
+        name="lastName"
+        ngModel
+        required
+        minlength="4"
+        maxlength="32"
+        pattern="^[a-zA-Z\s]+$"
+        #lastName="ngModel" >
+        <p class="error-message" *ngIf="lastName.touched && !lastName.valid">Invalid Name</p>
+      </div>
+    </div>
+  </div>
+  <div class="group">
+    <input 
+    type="text" 
+    class="form-control" 
+    placeholder="Username"
+    name="username"
+    ngModel
+    required
+    minlength="4"
+    maxlength="32"
+    pattern="^[\w]+$"
+    #username="ngModel" >
+    <p class="error-message" *ngIf="username.touched && !username.valid">Invalid Username</p>
+  </div>
+  <div class="group">
+    <input 
+    type="email" 
+    class="form-control" 
+    placeholder="Email"
+    name="email"
+    ngModel
+    required
+    #email="ngModel" >
+    <p class="error-message" *ngIf="email.touched && !email.valid">Invalid Email</p>
+  </div>
+  <div class="group">
+    <input 
+    type="password" 
+    class="form-control" 
+    placeholder="Password"
+    name="password"
+    minlength="8"
+    maxlength="100"
+    ngModel
+    required
+    #password="ngModel" >
+    <p class="error-message" *ngIf="password.touched && !password.valid">Password must be between 8-100 characters</p>
+  </div>
+  <div class="group">
+    <input 
+    type="password" 
+    class="form-control" 
+    placeholder="Confirm Password"
+    name="confirmPassword"
+    ngModel
+    #confirmPassword="ngModel" >
+    <p class="error-message" *ngIf="confirmPassword.dirty && confirmPassword.value !== password.value">
+      Passwords don't match
+    </p>
+  </div>
+  <button 
+    type="submit" 
+    class="outer-btn-create btn btn--type-02 mt--20"
+    [disabled]="!form.valid || confirmPassword.value !== password.value || fetching" >
+    <span *ngIf="!fetching">Create New Account</span>
+    <app-spinner *ngIf="fetching"></app-spinner>
+  </button>
+  <p class="error-message mt--20" *ngIf="!!error">{{ error }}</p>
+</form>

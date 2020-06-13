@@ -1,0 +1,12 @@
+td,
+th {
+  text-align: center !important;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
+img {
+  width: 40px;
+}

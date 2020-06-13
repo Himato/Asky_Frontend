@@ -1,0 +1,52 @@
+.content-form {
+  height: 190px;
+  font-size: 16px;
+  border: solid 1px #e9ecee;
+  border-radius: 0;
+  background-color: #f8f9fa;
+  color: #8e9091;
+  resize: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.content-form:focus {
+  outline: none;
+}
+
+@media only screen and (min-width: 1040px) {
+  .content-form {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 1039px) {
+  .content-form {
+    padding: 14px 15px;
+    font-size: 14px;
+  }
+}
+
+.create-textarea-head button {
+  border: none;
+  background: none;
+  margin-right: 15px;
+}
+
+.create-textarea-head button:focus {
+  outline: none;
+}
+
+.create-btn-create:focus {
+  outline: none;
+}
+
+[contenteditable][placeholder]:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  color: gray;
+  background-color: transparent;
+  cursor: text;
+}

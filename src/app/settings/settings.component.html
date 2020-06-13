@@ -1,0 +1,143 @@
+<div class="container">
+  <div *ngIf="!!danger" class="alert alert-danger" #alert>{{ danger }}</div>
+  <div *ngIf="!!success" class="alert alert-success" #alert>{{ success }}</div>
+  <div *ngIf="fetching" class="mt--20">
+    <app-spinner [width]="45"></app-spinner>
+  </div>
+  <div *ngIf="!fetching">
+    <div class="row mt--20">
+      <div class="col col-left">
+        <img [src]="url + profile.imageUri" *ngIf="!submittingImage" alt="avatar" class="rounded-image">
+        <div *ngIf="submittingImage" class="spinner">
+          <app-spinner [width]="45"></app-spinner>
+        </div>
+        <input 
+          id="images"
+          class="hide" 
+          type="file" 
+          accept="image/*"
+          name="images"
+          (change)="onSelectImage($event.target.files)" >
+        <label *ngIf="!submittingImage" class="btn-link" for="images">Change Picture</label>
+      </div>
+      <div class="col col-right">
+        <div class="row">
+          <form class="outer-form" (ngSubmit)="onSubmit()" #profileForm="ngForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="group">
+                  <input 
+                  type="name" 
+                  class="form-control" 
+                  placeholder="First Name"
+                  name="firstName"
+                  [ngModel]="profile.firstName"
+                  required
+                  minlength="4"
+                  maxlength="32"
+                  pattern="^[a-zA-Z\s]+$"
+                  #firstName="ngModel" >
+                  <p class="error-message" *ngIf="firstName.touched && !firstName.valid">Invalid Name</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="group">
+                  <input 
+                  type="name" 
+                  class="form-control" 
+                  placeholder="Last Name"
+                  name="lastName"
+                  [ngModel]="profile.lastName"
+                  required
+                  minlength="4"
+                  maxlength="32"
+                  pattern="^[a-zA-Z\s]+$"
+                  #lastName="ngModel" >
+                  <p class="error-message" *ngIf="lastName.touched && !lastName.valid">Invalid Name</p>
+                </div>
+              </div>
+            </div>
+            <div class="group">
+              <input 
+              type="email" 
+              class="form-control" 
+              placeholder="Email"
+              name="email"
+              [ngModel]="profile.email"
+              required
+              #email="ngModel" >
+              <p class="error-message" *ngIf="email.touched && !email.valid">Invalid Email</p>
+            </div>
+            <div class="group">
+              <textarea 
+                rows="4"
+                class="form-control" 
+                placeholder="About"
+                name="about"
+                minlength="4"
+                maxlength="255"
+                [ngModel]="profile.about"
+                #about="ngModel" >
+              </textarea>
+              <p class="error-message" *ngIf="about.touched && !about.valid">About must be between 4 - 255 characters</p>
+            </div>
+            <button 
+              type="submit" 
+              class="outer-btn-create btn btn--type-02 mt--20"
+              [disabled]="!profileForm.valid || !profileForm.dirty || submittingForm" >
+              <span *ngIf="!submittingForm">Update Profile</span>
+              <app-spinner *ngIf="submittingForm"></app-spinner>
+            </button>
+            <p class="error-message mt--20" *ngIf="!!formError">{{ formError }}</p>
+          </form>
+        </div>
+        <div class="row">
+          <form class="outer-form" (ngSubmit)="onPasswordSubmit()" #passwordForm="ngForm">
+            <div class="group">
+              <input 
+              type="password" 
+              class="form-control" 
+              placeholder="Current Password"
+              name="password"
+              ngModel
+              required >
+            </div>
+            <div class="group">
+              <input 
+              type="password" 
+              class="form-control" 
+              placeholder="New Password"
+              name="newPassword"
+              minlength="6"
+              maxlength="100"
+              ngModel
+              required
+              #password="ngModel" >
+              <p class="error-message" *ngIf="password.touched && !password.valid">Password must be between 8-100 characters</p>
+            </div>
+            <div class="group">
+              <input 
+              type="password" 
+              class="form-control" 
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              ngModel
+              #confirmPassword="ngModel" >
+              <p class="error-message" *ngIf="confirmPassword.dirty && confirmPassword.value !== password.value">
+                Passwords don't match
+              </p>
+            </div>
+            <button 
+              type="submit" 
+              class="outer-btn-create btn btn--type-02 mt--20"
+              [disabled]="!passwordForm.valid || confirmPassword.value !== password.value || submittingPasswordForm" >
+              <span *ngIf="!submittingPasswordForm">Update Password</span>
+              <app-spinner *ngIf="submittingPasswordForm"></app-spinner>
+            </button>
+            <p class="error-message mt--20" *ngIf="!!passwordFormError">{{ passwordFormError }}</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<header>
+  <div class="header js-dropdown" [ngClass]="{'header--search': isHeaderSearch}">
+    <div *ngIf="newNotifications.length > 0" class="floating-list">
+      <a 
+        *ngFor="let notification of newNotifications" 
+        (click)="navigate(notification)" 
+        [ngClass]="{'unread': !notification.isRead}"
+        class="floating-notification pointer">
+        <i 
+          [ngClass]="{'icon-Upvote': notification.type === types.UpVote || notification.type === types.CommentUpVote,
+          'icon-Downvote': notification.type === types.DownVote || notification.type === types.CommentDownVote,
+          'icon-Reply_Empty': notification.type === types.Comment || notification.type === types.Reply}"
+          >
+        </i>
+        <p class="notification-text">
+          {{ notification.sender.name }} has
+          {{ notification.type === types.Comment ?
+             'commented' : notification.type === types.Reply ?
+             'replied' : 'voted' }} .
+          {{ notification.createdAt | date }}
+          <span class="notification-title">{{ notification.title }}</span>
+        </p>
+      </a>
+    </div>
+    <div class="container">
+      <div class="header-logo">
+        <h1>
+          <img src="/assets/fonts/icons/main/Logo_Forum.svg" data-dropdown-btn="logo" alt="logo">
+        </h1>
+        <div class="header-logo-btn" data-dropdown-btn="logo">
+          Asky<i class="icon-Arrow_Below"></i>
+        </div>
+        <nav class="dropdown dropdown--design-01" data-dropdown-list="logo">
+          <ul class="dropdown-catalog">
+            <li><a [routerLink]="['/']" >Home Page</a></li>
+            <li><a [routerLink]="['/create']" *ngIf="!!user" >Create New Topic</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-search">
+        <form>
+          <label>
+            <i class="icon-Search" (click)="onOpenSearch()"></i>
+            <input 
+              type="search" 
+              placeholder="Search all topics" 
+              class="form-control" 
+              (keydown)="onSearchChange($event)">
+          </label>
+        </form>
+        <div class="header-search-close" (click)="onCloseSearch()"><i class="icon-Cancel"></i></div>
+      </div>
+      <div class="header-menu">
+        <div class="header-menu-btn" data-dropdown-btn="menu">
+          Latest Topics<i class="icon-Menu_Icon"></i>
+        </div>
+        <nav class="dropdown dropdown--design-01" data-dropdown-list="menu">
+          <div>
+            <ul class="dropdown-catalog row">
+              <li class="col-xs-6"><a [routerLink]="['/']" [queryParams]="{latest: true}">Latest</a></li>
+              <li class="col-xs-6"><a [routerLink]="['/']" [queryParams]="{unread: true}">Unread</a></li>
+              <li class="col-xs-6"><a [routerLink]="['/']" [queryParams]="{voted: true}">Top Voted</a></li>
+              <li class="col-xs-6"><a [routerLink]="['/']" [queryParams]="{popular: true}">Popular</a></li>
+            </ul>
+          </div>
+          <div *ngIf="!!categories">
+            <h3>Categories</h3>
+            <ul class="dropdown-catalog row">
+              <li *ngFor="let category of categories" class="col-xs-6">
+                <a class="category" [routerLink]="['/']" [queryParams]="{c: category.uri}" >
+                  <i [ngStyle]="{'background-color': '#' + category.color}"></i>
+                  <span>{{ category.name }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="header-notification" *ngIf="!!user">
+        <div class="header-notification-btn" data-dropdown-btn="notification">
+          <i class="icon-Notification"></i>
+          <span *ngIf="numberOfUnread > 0">{{ numberOfUnread }}</span>
+        </div>
+        <div class="dropdown dropdown--design-01" data-dropdown-list="notification">
+          <div>
+            <a 
+              *ngFor="let notification of notifications" 
+              (click)="navigate(notification)" 
+              [ngClass]="{'unread': !notification.isRead}"
+              class="pointer">
+              <i 
+                [ngClass]="{'icon-Upvote': notification.type === types.UpVote || notification.type === types.CommentUpVote,
+                 'icon-Downvote': notification.type === types.DownVote || notification.type === types.CommentDownVote,
+                 'icon-Reply_Empty': notification.type === types.Comment || notification.type === types.Reply}"
+                >
+              </i>
+              <p class="notification-text">
+                {{ notification.sender.name }} has
+                {{ notification.type === types.Comment ?
+                   'commented' : notification.type === types.Reply ?
+                   'replied' : 'voted' }}
+                {{ notification.others != null && notification.others > 0 ?
+                   'and ' + notification.others + ' other' + (notification.others > 1 ? 's' : '') : ''}}
+                .
+                {{ notification.createdAt | date }}
+                <span class="notification-title">{{ notification.title }}</span>
+              </p>
+            </a>
+            <a *ngIf="notifications.length === 0">
+              <p *ngIf="times <= 1" class="no-notifications">There is no new notifications to show yet.</p>
+              <p *ngIf="times > 1" class="no-notifications">There is no notifications to show yet.</p>
+            </a>
+            <span *ngIf="isMore">
+              <a [ngClass]="{'hide': fetching}" (click)="addNotifications()" class="pointer" >View more notifications</a>
+              <a [ngClass]="{'hide': !fetching}"><app-spinner [width]="25"></app-spinner></a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="header-user" *ngIf="!!user">
+        <div class="header-user-btn" data-dropdown-btn="user">
+          <img class="rounded-image medium" [src]="url + user.uri" alt="avatar">
+          <span class="header-username">{{ user.username }}</span><i class="icon-Arrow_Below"></i>
+        </div>
+        <nav class="dropdown dropdown--design-01" data-dropdown-list="user">
+          <div>
+            <div class="dropdown-icons">
+              <a [routerLink]="['/bookmarks']" ><i class="icon-Bookmark"></i></a>
+              <a [routerLink]="['/create']" ><i class="icon-Message"></i></a>
+              <a [routerLink]="['/settings']" ><i class="icon-Preferences"></i></a>
+              <a (click)="onLogout()" class="pointer" ><i class="icon-Logout"></i></a>
+            </div>
+          </div>
+          <div>
+            <ul class="dropdown-catalog">
+              <li><a [routerLink]="['/dashboard']" *ngIf="isAdmin" >Dashboard</a></li>
+              <li><a [routerLink]="['/profile']" >My Profile</a></li>
+              <li><a [routerLink]="['/up-votes']" >My Up Votes</a></li>
+              <li><a [routerLink]="['/down-votes']" >My Down Votes</a></li>
+              <li><a [routerLink]="['/history']" >History</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <a [routerLink]="['/login']" *ngIf="!user" class="btn login" >Login</a>
+    </div>
+    <div class="header-offset-btn" *ngIf="!!user">
+      <a [routerLink]="['/create']" ><img src="/assets/fonts/icons/main/New_Topic.svg" alt="New Topic"></a>
+    </div>
+  </div>
+</header>

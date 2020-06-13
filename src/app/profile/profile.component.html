@@ -1,0 +1,20 @@
+<div class="container">
+  <div *ngIf="fetching" class="mt--20">
+    <app-spinner [width]="45"></app-spinner>
+  </div>
+  <div *ngIf="!fetching">
+    <div class="row mt--20">
+      <div class="col col-left">
+        <img [src]="url + profile.imageUri" alt="avatar" class="rounded-image">
+      </div>
+      <div class="col col-right">
+        <div class="row" style="display: inline;">
+          <h2>{{ profile.name }}</h2>
+          <p *ngIf="!!profile.about">{{ profile.about }}</p>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <app-topics-list [topics]="profile.topics"></app-topics-list>
+  </div>
+</div>

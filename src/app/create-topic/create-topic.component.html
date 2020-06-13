@@ -1,0 +1,142 @@
+<div class="container">
+  <div *ngIf="fetching" class="mt--20"><app-spinner [width]="45"></app-spinner></div>
+  <form *ngIf="!fetching" class="create" (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="create-head">
+      <div class="create-title"><img src="assets/fonts/icons/main/New_Topic.svg" alt="New topic">
+        {{ !!topic ? 'Edit' : 'Create New' }} Topic
+      </div>
+      <span><a [routerLink]="[ '/guidelines']">Forum Guidelines</a></span>
+    </div>
+    <div class="row" *ngIf="!!categories">
+      <div class="col-md-6">
+        <div class="create-section">
+          <label class="create-label">Select Category</label>
+          <label class="custom-select">
+            <select 
+              name="categoryId" 
+              [ngModel]="!!topic ? topic.categoryId : (!!categories[0] ? categories[0].id : 0)" 
+              required>
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="create-section">
+      <label class="create-label">Topic Title</label>
+      <input 
+        type="text" 
+        class="form-control"
+        placeholder="What do you want to talk about?"
+        name="title"
+        [ngModel]="!!topic ? topic.title : ''"
+        [disabled]="!!topic"
+        required
+        minlength="16"
+        maxlength="128" >
+    </div>
+    <div class="create-section create-textarea">
+      <label class="create-label">Content</label>
+      <div class="create-textarea-head">
+        <button 
+          title="Bold (Ctrl+B)" 
+          (click)="onSelect('bold')" 
+          type="button">
+          <i class="fa fa-bold"></i>
+        </button>
+        <button 
+          title="Italic (Ctrl+I)" 
+          (click)="onSelect('italic')" 
+          type="button">
+          <i class="fa fa-italic"></i>
+        </button>
+        <button 
+          title="Underline (Ctrl+U)" 
+          (click)="onSelect('underline')" 
+          type="button">
+          <i class="fa fa-underline"></i>
+        </button>
+        <button 
+          title="Strikethrough (Ctrl+S)" 
+          (click)="onSelect('strikethrough')" 
+          type="button">
+          <i class="fa fa-strikethrough"></i>
+        </button>
+        <button 
+          title="Subscript" 
+          (click)="onSelect('subscript')" 
+          type="button">
+          <i class="fa fa-subscript"></i>
+        </button>
+        <button 
+          title="Superscript" 
+          (click)="onSelect('superscript')" 
+          type="button">
+          <i class="fa fa-superscript"></i>
+        </button>
+        <span class="create-textarea-separate"></span>
+        <button 
+          title="Align Left" 
+          (click)="onSelect('justifyLeft')" 
+          type="button">
+          <i class="fa fa-align-left"></i>
+        </button>
+        <button 
+          title="Align Center" 
+          (click)="onSelect('justifyCenter')" 
+          type="button">
+          <i class="fa fa-align-center"></i>
+        </button>
+        <button 
+          title="Align Right" 
+          (click)="onSelect('justifyRight')" 
+          type="button">
+          <i class="fa fa-align-right"></i>
+        </button>
+        <button 
+          title="Align Justify" 
+          (click)="onSelect('justifyFull')" 
+          type="button">
+          <i class="fa fa-align-justify"></i>
+        </button>
+        <span class="create-textarea-separate"></span>
+        <button 
+          title="Undo (Ctrl+Z)" 
+          (click)="onSelect('undo')" 
+          type="button">
+          <i class="fa fa-undo"></i>
+        </button>
+        <button 
+          title="Redo (Ctrl+Shift+Z)" 
+          (click)="onSelect('redo')" 
+          type="button">
+          <i class="fa fa-rotate-right"></i>
+        </button>
+      </div>
+      <div 
+        class="content-form" 
+        contenteditable="true" 
+        spellcheck="true"
+        placeholder="Add your topic content in here"
+        [innerHTML]="!!topic ? topic.content : ''"
+        #content >
+      </div>
+    </div>
+    <div class="create-footer">
+      <a [routerLink]="['/']" class="create-btn-cansel btn">Cancel</a>
+      <button 
+        [disabled]="form.invalid || submitting" 
+        type="submit" class="create-btn-create btn btn--type-02">
+        <span *ngIf="!submitting">{{ !!topic ? 'Edit' : 'Create' }} Topic</span>
+        <app-spinner *ngIf="submitting" [width]="25"></app-spinner>
+      </button>
+    </div>
+    <p class="success-message mt--10" *ngIf="succeed">
+      Topic has been updated successfully.
+      <a [routerLink]="['/t', topic.uri]" routerLinkActive="router-link-active" >View Topic</a>
+    </p>
+    <p class="error-message mt--10" *ngIf="!!error">{{ error }}</p>
+  </form>
+</div>

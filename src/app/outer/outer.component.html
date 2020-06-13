@@ -1,0 +1,54 @@
+<div class="signup">
+  <header class="outer-header">
+    <div class="container">
+      <div class="outer-header-content" *ngIf="isRegister">
+        <p>Already have an account?</p>
+        <a [routerLink]="['/login']" class="btn">Sign In</a>
+      </div>
+      <div class="outer-header-content" *ngIf="!isRegister">
+        <p>Doesn't have an account?</p>
+        <a [routerLink]="['/register']" class="btn">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="outer-main">
+    <img class="outer-bg" src="assets/images/signup-bg.png" alt="bg">
+
+    <div class="container">
+      <div class="outer-container">
+        <div class="outer-logo">
+          <a [routerLink]="['/']" ><img src="assets/fonts/icons/main/Logo_Forum.svg" alt="logo">Asky</a>
+        </div>
+    
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    
+  </main>
+
+  <footer class="outer-footer mt--30">
+    <div class="container">
+      <div class="outer-footer-content">
+        <ul class="outer-footer-menu">
+          <li><a [routerLink]="['/about']" >About</a></li>
+          <li><a [routerLink]="['/guidelines']" >Forum Guidelines</a></li>
+          <li><a [routerLink]="['/policy']" >Privacy Policy</a></li>
+          <li><a [routerLink]="['/contact']" >Contact</a></li>
+        </ul>
+        <ul class="outer-footer-social">
+          <li>
+            <a href="https://www.facebook.com/himatoooo" target="_blank">
+              <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.twitter.com/mesawer0" target="_blank">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>

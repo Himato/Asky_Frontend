@@ -1,0 +1,28 @@
+<form class="outer-form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <input 
+    type="name" 
+    class="form-control" 
+    placeholder="Category Name"
+    name="name"
+    ngModel
+    required >
+  <input 
+    type="text" 
+    class="form-control mb-0"
+    placeholder="Hex Color Code"
+    [ngStyle]="{'border-bottom': 'solid 2px #' + (color.valid ? color.value : 'e9ecee')}"
+    name="color"
+    ngModel
+    required
+    pattern="^[a-f0-9\s]+$"
+    #color="ngModel" >
+  <p class="error-message" *ngIf="color.dirty && color.invalid">Invalid Hex Color</p>
+  <button 
+    type="submit" 
+    class="outer-btn-create btn btn--type-02 mt--20"
+    [disabled]="!form.valid || fetching" >
+    <span *ngIf="!fetching">Add Category</span>
+    <app-spinner *ngIf="fetching"></app-spinner>
+  </button>
+  <p class="error-message mt--20" *ngIf="!!error">{{ error }}</p>
+</form>

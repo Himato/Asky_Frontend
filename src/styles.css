@@ -1,0 +1,162 @@
+@import url("assets/fonts/icons/main/mainfont/style.css");
+@import url("assets/fonts/icons/font-awesome/css/font-awesome.min.css");
+@import url("assets/vendor/bootstrap/v3/bootstrap.min.css");
+@import url("assets/vendor/bootstrap/v4/bootstrap-grid.css");
+@import url("assets/css/style.css");
+
+.hide {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer[disabled] {
+  cursor: default;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.rounded-image {
+  border-radius: 50%;
+}
+
+.rounded-image.small {
+  width: 32px;
+  height: 32px;
+}
+
+.rounded-image.medium {
+  width: 45px;
+  height: 45px;
+}
+
+.rounded-image.large {
+  width: 120px;
+  height: 120px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-bottom: 2px solid #fc5151;
+}
+
+textarea.form-control {
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+p.error-message {
+  text-align: center;
+  color: #a94442;
+  margin: 0px;
+}
+
+p.success-message {
+  text-align: center;
+  color: #42a95c;
+  margin: 0px;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+@keyframes yellowfade {
+  from {
+    background-color: #fef2e0;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.new-highlight {
+  /* transition: background-color 0.5s ease-in-out;
+    background-color: #F6F5D7; */
+  animation-name: yellowfade !important;
+  animation-duration: 2s;
+}
+
+@keyframes yellow-white {
+  from {
+    background-color: #fef2e0;
+  }
+  to {
+    background-color: #ffffff;
+  }
+}
+
+.white-highlight {
+  animation-name: yellow-white !important;
+  animation-duration: 3s;
+}
+
+.alert {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  margin-left: -25%;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  z-index: 1024;
+  text-align: center;
+
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 0s;
+  animation: slide 0.5s forwards;
+  animation-delay: 0s;
+}
+
+@-webkit-keyframes slide {
+  100% {
+    top: 15%;
+    opacity: 100%;
+  }
+}
+
+@keyframes slide {
+  100% {
+    top: 15%;
+    opacity: 100%;
+  }
+}
+
+.alert-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}

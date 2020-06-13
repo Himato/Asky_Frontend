@@ -1,0 +1,30 @@
+<div class="outer-head">
+  <h3>Login to your Account</h3>
+  <p>Login to be able to start posting, replaying to topics, favorite, vote topics and many more.
+  </p>
+</div>
+<form class="outer-form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <input 
+    type="email" 
+    class="form-control" 
+    placeholder="Email Address"
+    name="email"
+    ngModel
+    required >
+  <input 
+    type="password" 
+    class="form-control" 
+    placeholder="Password"
+    name="password"
+    ngModel
+    required >
+  <button 
+    type="submit" 
+    class="outer-btn-create btn btn--type-02"
+    [disabled]="!form.valid || fetching" >
+    <span *ngIf="!fetching">Login Now</span>
+    <app-spinner *ngIf="fetching"></app-spinner>
+  </button>
+  <p class="error-message mt--20" *ngIf="!!error">{{ error }}</p>
+  <p class="text-left mt--20">Have you forgot your password ? <a [routerLink]="['/forget-password']" >Reset Now!</a></p>
+</form>

@@ -1,0 +1,13 @@
+p {
+  text-align: justify;
+}
+
+a {
+  cursor: pointer;
+}
+
+.btn {
+  display: block;
+  margin-left: auto;
+  width: fit-content;
+}

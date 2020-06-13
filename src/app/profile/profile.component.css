@@ -1,0 +1,47 @@
+img {
+  width: 12rem;
+  height: 12rem;
+}
+
+.col {
+  padding-left: 15px;
+}
+
+.col-left {
+  flex: 0 0 20%;
+  max-width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-right {
+  flex: 0 0 80%;
+  max-width: 80%;
+}
+
+@media only screen and (max-width: 788px) {
+  .col-left {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+
+  .col-right {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+}
+
+hr {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  margin-top: 0px;
+  word-wrap: break-word;
+}

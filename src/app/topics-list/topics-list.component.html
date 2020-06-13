@@ -1,0 +1,57 @@
+<div *ngIf="!!topics" class="posts">
+  <div class="post-head">
+    <div class="post-topic">Topic</div>
+    <div class="post-category">Category</div>
+    <div class="post-users">User</div>
+    <div class="post-replies">Comments</div>
+    <div class="post-views">Views</div>
+    <div class="post-activity">Activity</div>
+  </div>
+  <div class="post-body">
+    <div *ngFor="let topic of topics; let index = index" [ngClass]="{'bg-f2f4f6': index % 2 !== 0}" class="post-item">
+      <div class="post-section-left">
+        <div class="post-topic">
+          <div class="post-content" [title]="topic.title">
+            <a [routerLink]="['/t', topic.uri]" >
+              <h3>{{ topic.title }}</h3>
+            </a>
+          </div>
+        </div>
+        <div class="post-category">
+          <a class="category">
+            <i [ngStyle]="{'background-color': '#' + topic.category.color}"></i>{{ topic.category.name}}
+          </a>
+        </div>
+      </div>
+      <div class="post-section-right">
+        <div class="post-users">
+          <div>
+            <a [routerLink]="['/users', topic.user.username]" class="avatar">
+              <img [src]="url + topic.user.imageUri" [title]="topic.user.name" class="rounded-image small" alt="avatar">
+            </a>
+          </div>
+        </div>
+        <div class="post-replies">{{ topic.numberOfComments }}</div>
+        <div class="post-views">{{ topic.numberOfViews }}</div>
+        <div class="post-activity">{{ topic.createdAt | activity }}</div>
+      </div>
+    </div>
+    <div *ngIf="topics.length === 0" class="post-item">
+      <p class="no-data">There is no results found</p>
+    </div>
+  </div>
+  <div *ngIf="limit !== null && offset !== null" class="mt--20">
+    <button 
+      *ngIf="limit > 0"
+      (click)="onPrevious()"
+      type="button" class="btn navigate-btn">
+      Previous
+    </button>
+    <button 
+      *ngIf="topics.length === this.offset"
+      (click)="onNext()"
+      type="button" class="btn navigate-btn next-btn">
+      Next
+    </button>
+  </div>
+</div>

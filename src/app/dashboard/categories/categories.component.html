@@ -1,0 +1,22 @@
+<div class="container mt--20">
+  <div class="row">
+    <a [routerLink]="['/dashboard']" class="btn d-block ml-auto">Users</a>
+    <a 
+      *ngIf="isMain" 
+      [routerLink]="['/dashboard', 'categories', 'new']" 
+      class="btn d-block" 
+      style="margin-left: 10px;">
+      Add new category
+    </a>
+    <a 
+      *ngIf="!isMain" 
+      [routerLink]="['/dashboard', 'categories']" 
+      class="btn d-block" 
+      style="margin-left: 10px;">
+      Categories
+    </a>
+    <div class="mt--20" style="width: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

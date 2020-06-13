@@ -1,0 +1,226 @@
+<div class="container mt--20">
+  <div *ngIf="!!message" class="alert alert-primary" #alert>{{ message }}</div>
+  <div *ngIf="!!danger" class="alert alert-danger" #alert>{{ danger }}</div>
+  <div *ngIf="!!success" class="alert alert-success" #alert>{{ success }}</div>
+  <app-spinner *ngIf="fetching"></app-spinner>
+  <div class="topics" *ngIf="!fetching">
+    <div class="topics-heading mb--20">
+      <h2 class="topics-heading-title">{{ topic.title }}</h2>
+      <div class="topics-heading-info">
+        <i [ngStyle]="{'background-color': '#f9bc64'}"></i> {{ topic.category.name }}
+      </div>
+      <div *ngIf="!!user && user.username === topic.user.username" class="crud-list">
+        <a [routerLink]="['/edit', topic.id]" class="crud">edit</a>
+        <a (click)="onDeleteTopic()" class="crud">delete</a>
+      </div>
+    </div>
+    <div class="topics-body">
+      <div class="topics-content">
+        <div class="topic">
+          <div class="topic-head">
+            <div class="topic-avatar">
+              <a [routerLink]="['/users', topic.user.username]" class="avatar">
+                <img [src]="url + topic.user.imageUri" class="rounded-image small" alt="user image">
+              </a>
+            </div>
+            <div class="topic-caption">
+              <div class="topic-name">
+                <a [routerLink]="['/users', topic.user.username]" >{{ topic.user.name }}</a>
+              </div>
+              <div class="topic-date"><i class="icon-Watch_Later"></i>{{ topic.createdAt | date }}</div>
+            </div>
+          </div>
+          <div class="topic-content">
+            <div class="topic-text" [innerHTML]="topic.content" ></div>
+            <div class="topic-footer">
+              <div class="topic-footer-likes">
+                <div>
+                  <a 
+                    (click)="onVoteUp()" 
+                    [ngClass]="{'up-active': topic.isUpVoted}"
+                    class="pointer">
+                    <i class="icon-Upvote"></i>
+                  </a>
+                  <span>{{ topic.numberOfUpVotes }}</span>
+                </div>
+                <div>
+                  <a 
+                    (click)="onVoteDown()" 
+                    [ngClass]="{'down-active': topic.isUpVoted !== null && !topic.isUpVoted}" 
+                    class="pointer">
+                    <i class="icon-Downvote"></i>
+                  </a>
+                  <span>{{ topic.numberOfDownVotes }}</span>
+                </div>
+                <div>
+                  <a><i class="icon-Reply_Empty"></i></a>
+                  <span>{{ topic.comments.length }}</span>
+                </div>
+              </div>
+              <div class="topic-footer-share">
+                <div data-visible="desktop">
+                  <a (click)="onCopyLink()" class="pointer" title="Copy Link"><i class="icon-Share_Topic"></i></a>
+                  <a 
+                    (click)="onBookmark()" 
+                    [ngClass]="{'active': topic.isBookmarked}"
+                    class="pointer" title="Add to Bookmarks">
+                    <i class="icon-Bookmark"></i>
+                  </a>
+                </div>
+                <div data-visible="mobile">
+                  <a class="pointer"><i class="icon-More_Options"></i></a>
+                </div>
+                <a (click)="onAddComment()" class="pointer" title="Add a comment"><i class="icon-Reply_Fill"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let comment of topic.comments; let index = index">
+          <div [id]="'comment-' + comment.id" class="topic">
+            <div class="topic-head">
+              <div class="topic-avatar">
+                <a [routerLink]="['/users', comment.user.username]" class="avatar">
+                  <img [src]="url + comment.user.imageUri" class="rounded-image small" alt="avatar">
+                </a>
+              </div>
+              <div class="topic-caption">
+                <div class="topic-name">
+                  <a [routerLink]="['/users', comment.user.username]">{{ comment.user.name }}</a>
+                </div>
+                <div class="topic-date"><i class="icon-Watch_Later"></i>{{ comment.createdAt | date }}</div>
+              </div>
+            </div>
+            <div class="topic-content">
+              <div *ngIf="!!user && user.username === comment.user.username" class="crud-list">
+                <a (click)="onEditComment(comment)" class="crud">edit</a>
+                <a (click)="onDeleteComment(index, comment.id)" class="crud">delete</a>
+              </div>
+              <div class="topic-text">
+                <pre>{{ comment.content }}</pre>
+              </div>
+              <div class="topic-footer">
+                <div class="topic-footer-likes">
+                  <div>
+                    <a 
+                      (click)="onCommentVoteUp(comment)" 
+                      [ngClass]="{'up-active': comment.isUpVoted}"
+                      class="pointer">
+                      <i class="icon-Upvote"></i>
+                    </a>
+                    <span>{{ comment.numberOfUpVotes }}</span>
+                  </div>
+                  <div>
+                    <a 
+                      (click)="onCommentVoteDown(comment)" 
+                      [ngClass]="{'down-active': comment.isUpVoted !== null && !comment.isUpVoted}"
+                      class="pointer">
+                      <i class="icon-Downvote"></i>
+                    </a>
+                    <span>{{ comment.numberOfDownVotes }}</span>
+                  </div>
+                  <div>
+                    <a><i class="icon-Reply_Empty"></i></a>
+                    <span>{{ comment.replies.length }}</span>
+                  </div>
+                </div>
+                <div class="topic-footer-share">
+                  <a (click)="onAddReply(comment.id)" class="pointer"><i class="icon-Reply_Fill"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div 
+            [id]="'reply-' + reply.id" 
+            class="topic topics--comment reply" 
+            *ngFor="let reply of comment.replies; let index = index">
+            <div class="topic-head">
+              <div class="topic-avatar">
+                <a [routerLink]="['/users', reply.user.username]" class="avatar">
+                  <img [src]="url + reply.user.imageUri" class="rounded-image small" alt="avatar">
+                </a>
+              </div>
+              <div class="topic-caption">
+                <div class="topic-name">
+                  <a [routerLink]="['/users', reply.user.username]">{{ reply.user.name }}</a>
+                </div>
+                <div class="topic-date"><i class="icon-Watch_Later"></i>{{ reply.createdAt | date }}</div>
+              </div>
+            </div>
+            <div class="topic-content">
+              <div *ngIf="!!user && user.username === reply.user.username" class="crud-list">
+                <a (click)="onEditReply(reply)" class="crud">edit</a>
+                <a (click)="onDeleteReply(comment, index, reply.id)" class="crud">delete</a>
+              </div>
+              <div class="topic-text">
+                <pre>{{ reply.content }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="comment" *ngIf="!!user" class="topic">
+          <div class="topic-head" style="padding-bottom: 20px;">
+            <div class="topic-avatar">
+              <a class="avatar"><img class="rounded-image small" [src]="url + user.uri" alt="avatar"></a>
+            </div>
+            <div class="topic-caption">
+              <div class="topic-name">
+                <a>{{ user.givenName }}</a>
+              </div>
+            </div>
+          </div>
+          <div class="topic-content">
+            <div class="topic-text">
+              <div *ngIf="!!loaded" class="topic topics--answer mb--20">
+                <div class="topic-head">
+                  <div class="topic-caption">
+                    <div class="topic-user">
+                      <a [routerLink]="['/users', loaded.user.username]" class="avatar">
+                        <img [src]="url + loaded.user.imageUri" class="rounded-image small" alt="avatar">
+                      </a>
+                      <a [routerLink]="['/users', loaded.user.username]" class="topic-user-name">
+                        {{ loaded.user.name }}
+                      </a>
+                    </div>
+                  </div>
+                  <a (click)="travel(loaded.id)" title="Move to Comment" class="topic-arrow pointer">
+                    <i class="fa fa-arrow-up"></i>
+                  </a>
+                  <a (click)="removeLoaded()" title="Cancel" class="topic-arrow pointer" style="margin-left: 10px;">
+                    <i class="fa fa-times"></i>
+                  </a>
+                </div>
+                <div class="topic-content">
+                  <div class="topic-text">
+                    <pre>{{ loaded.content }}</pre>
+                  </div>
+                </div>
+              </div>
+              <form (ngSubmit)="onSubmit()" #form="ngForm">
+                <textarea 
+                  name="content" 
+                  rows="4" 
+                  class="form-control comment"
+                  [ngModel]="!!editing ? editing.content : ''"
+                  required
+                  [placeholder]="(!!editing ? 'Edit' : 'Add a') + ' ' + (!!editing ? (!!editing.replies ? 'Comment' : 'Reply') : (!!loaded ? 'Reply' : 'Comment'))">
+                </textarea>
+                <div class="topic-footer comment-footer">
+                  <div class="topic-footer-share">
+                    <button *ngIf="!!editing && !submitting" (click)="onCancel()" class="btn btn--type-02" type="button">
+                      Cancel
+                    </button>
+                    <button [disabled]="form.invalid || submitting" class="btn btn--type-02" type="submit">
+                      <span *ngIf="!submitting">{{ !!editing ? 'Edit' : (!!loaded ? 'Reply' : 'Comment') }}</span>
+                      <app-spinner *ngIf="submitting" [width]="25"></app-spinner>
+                    </button>
+                  </div>
+                </div>
+                <p class="error-message mt--10" *ngIf="!!submittingError">{{ submittingError }}</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

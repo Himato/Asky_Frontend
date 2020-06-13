@@ -1,0 +1,17 @@
+p, li {
+  text-align: justify;
+}
+
+.parent-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ul-col {
+  margin: auto;
+  margin-top: 0;
+}
+
+.ul-col ul {
+  list-style-type: circle;
+}

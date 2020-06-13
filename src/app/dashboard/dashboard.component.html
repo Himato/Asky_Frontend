@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <a [routerLink]="['/dashboard', 'categories']" class="btn d-block ml-auto mt--20">Categories</a>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table mt--20 mb-0" *ngIf="!fetching && !!users">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>No. Of Topics</th>
+                  <th>No. Of Down Votes</th>
+                  <th>No. Of Up Votes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let user of users" >
+                  <td>
+                    <img [src]="url + user.imageUri" alt="User Image" class="rounded-image small">
+                    <span style="margin-left: 20px;">{{ user.name }}</span>
+                  </td>
+                  <td><a [routerLink]="[ '/users', user.username ]">{{ user.username }}</a></td>
+                  <td>{{ user.numberOfTopics }}</td>
+                  <td>{{ user.numberOfUpVotes }}</td>
+                  <td>{{ user.numberOfDownVotes }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-center" *ngIf="!fetching && (!users || users.length === 0)">
+              There're no users registered yet.
+            </p>
+            <div class="text-center mt--40" *ngIf="fetching">
+              <app-spinner></app-spinner>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

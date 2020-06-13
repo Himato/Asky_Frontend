@@ -1,0 +1,12 @@
+.group {
+  margin-bottom: 30px;
+}
+
+.group > p {
+  text-align: left !important;
+  font-size: 14px;
+}
+
+.group > .form-control {
+  margin-bottom: 0px !important;
+}

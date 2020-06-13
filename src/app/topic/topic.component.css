@@ -1,0 +1,80 @@
+.topics-heading-info i {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: 0;
+  margin-right: 10px;
+}
+
+.comment {
+  height: 140px;
+  font-size: 16px;
+  border: solid 1px #e9ecee;
+  border-radius: 0;
+  background-color: #f8f9fa;
+  color: #8e9091;
+  resize: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  padding: 14px 20px;
+}
+
+.comment-footer {
+  border-top: none;
+  margin-top: 0px;
+}
+
+.up-active i {
+  color: #03c744;
+}
+
+.down-active i {
+  color: #ff3c00;
+}
+
+.active i {
+  color: #245eff;
+}
+
+.crud-list {
+  width: max-content;
+  margin-left: auto;
+}
+
+.crud {
+  text-decoration: underline;
+  color: blue;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.crud:hover {
+  text-decoration: none;
+}
+
+pre {
+  margin: 0;
+  color: #8e9091;
+  line-height: 1.5;
+  box-sizing: inherit;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  padding: 0;
+  background-color: inherit;
+  border: none;
+
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.reply {
+  margin-top: 30px;
+}
+
+form button:focus {
+  outline: none;
+}

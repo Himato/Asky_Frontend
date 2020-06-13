@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="nav">
+    <div class="nav__categories js-dropdown">
+      <div class="nav__select">
+        <div class="btn-select" data-dropdown-btn="categories">{{ !!filters.categoryId ? categoryName : 'All Categories' }}</div>
+        <nav class="dropdown dropdown--design-01" data-dropdown-list="categories">
+          <ul class="dropdown-catalog row">
+            <li class="col-xs-12">
+              <a (click)="onCancelCategories()" class="category pointer">
+                <i></i>All Categories
+              </a>
+            </li>
+            <li class="col-xs-6" *ngFor="let category of categories">
+              <a (click)="filterByCategories(category.id)" class="category pointer">
+                <i [ngStyle]="{'background-color': '#' + category.color}"></i>{{ category.name }}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="nav__menu js-dropdown">
+      <div class="nav__select">
+        <div class="btn-select" data-dropdown-btn="menu">Latest</div>
+        <div class="dropdown dropdown--design-01" data-dropdown-list="menu">
+          <ul class="dropdown-catalog">
+            <li><a class="pointer">Latest</a></li>
+            <li><a class="pointer">Unread</a></li>
+            <li><a class="pointer">Top Voted</a></li>
+            <li><a class="pointer">Popular</a></li>
+          </ul>
+        </div>
+      </div>
+      <ul>
+        <li [ngClass]="{'active': filters.latest}"><a (click)="filterByLatest()" class=pointer>Latest</a></li>
+        <li [ngClass]="{'active': filters.unread}"><a (click)="filterByUnread()" class="pointer">Unread</a></li>
+        <li [ngClass]="{'active': filters.topVotes}"><a (click)="filterByVoted()" class="pointer">Top Voted</a></li>
+        <li [ngClass]="{'active': filters.popular}"><a (click)="filterByPopular()" class="pointer">Popular</a></li>
+      </ul>
+    </div>
+    <div *ngIf="!!filters.query" class="search-block">
+      <p>Search Query: {{ filters.query }}</p>
+      <a (click)="onCancelQuery()" class="btn-link pointer">Cancel</a>
+    </div>
+  </div>
+  <div *ngIf="fetching" class="mt--20">
+    <app-spinner [width]="45"></app-spinner>
+  </div>
+  <div *ngIf="!fetching">
+    <app-topics-list 
+      [topics]="topics" 
+      [offset]="filters.offset" 
+      [limit]="filters.limit" 
+      (limitChange)="filterByLimit($event)"></app-topics-list>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.no-data {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.navigate-btn {
+  width: 120px;
+  color: #ffffff;
+  background-color: #f9bc64;
+}
+
+.next-btn {
+  float: right;
+}
+
+.post-topic {
+  overflow: hidden;
+}
+
+.post-topic {
+  width: 100%;
+}
+
+.post-content,
+.post-content a {
+  width: 100%;
+}
+
+.post-content h3 {
+  overflow: hidden;
+  display: block !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 1040px) {
+  .post-content h3 {
+    max-height: 5.5ch;
+    white-space: normal;
+  }
+}

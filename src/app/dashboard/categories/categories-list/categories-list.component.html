@@ -1,0 +1,34 @@
+<div class="col-md-12">
+  <div class="table-responsive">
+    <table class="table mb-0" *ngIf="!fetching && !!categories">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Color</th>
+          <th>No. Of Topics</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let category of categories"
+          [ngClass]="{'new-highlight': !!id && category.id === id}" >
+          <td class="name-col">{{ category.name }}</td>
+          <td [ngStyle]="{'color': '#' + category.color}"> #{{ category.color }}</td>
+          <td>{{ category.numberOfTopics }}</td>
+          <td>
+            <a [routerLink]="['/dashboard', 'categories', 'edit', category.id ]" >
+              <i class="icon icon-pencil-square-o"></i> Edit item
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-center" *ngIf="!fetching && (!categories || categories.length === 0)">
+      You haven't added any categories yet.
+    </p>
+    <div class="text-center mt--40" *ngIf="fetching">
+      <app-spinner></app-spinner>
+    </div>
+  </div>
+</div>

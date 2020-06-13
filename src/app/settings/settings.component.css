@@ -1,0 +1,88 @@
+img {
+  width: 12rem;
+  height: 12rem;
+}
+
+.col {
+  padding-left: 15px;
+}
+
+.col-left {
+  flex: 0 0 20%;
+  max-width: 20%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.col-right {
+  flex: 0 0 80%;
+  max-width: 80%;
+}
+
+.col-left .spinner {
+  margin-top: 30px;
+}
+
+.outer-form {
+  width: 100%;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.row {
+  margin: 0;
+}
+
+@media only screen and (max-width: 788px) {
+  .col-left {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .outer-form {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  margin-top: 0px;
+  word-wrap: break-word;
+}
+
+hr {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.group {
+  margin-bottom: 30px;
+}
+
+.group > p {
+  text-align: left !important;
+  font-size: 14px;
+}
+
+.group > .form-control {
+  margin-bottom: 0px !important;
+}
+
+.btn-link {
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  margin-top: 15px;
+}

@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>My Down Votes</h2>
+  <div *ngIf="fetching" class="mt--20">
+    <app-spinner [width]="45"></app-spinner>
+  </div>
+  <div *ngIf="!fetching">
+    <hr />
+    <app-topics-list [topics]="topics"></app-topics-list>
+  </div>
+</div>
