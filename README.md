@@ -7,5 +7,4 @@ This is the Frontend repository of the application
 HTML, CSS, Typescript, Angular 9.1
 
 ## Live Version
-This site is currently running under [this url](https://www.asky.com).</br>
-Its API is also running under [this url](https://api.asky.com).
+This site is currently running under [this url](https://www.asky.com). Its API is also running under [this url](https://api.asky.com).
