@@ -7,4 +7,4 @@ This is the Frontend repository of the application
 HTML, CSS, Typescript, Angular 9.1
 
 ## Live Version
-This site is currently running under [this url](https://www.asky.com). Its API is also running under [this url](https://api.asky.com). And, you can visit the backend repository from [here](https://github.com/Himato/Asky_Backend)
+This site is currently running under [this url](http://asky.mesawer.com). Its API is also running under [this url](http://api.asky.mesawer.com). And, you can visit the backend repository from [here](https://github.com/Himato/Asky_Backend)
