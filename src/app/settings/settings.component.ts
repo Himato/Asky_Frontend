@@ -81,6 +81,7 @@ export class SettingsComponent implements OnInit {
       this.profileForm.value.about,
     ).subscribe(() => {
       this.submittingForm = false;
+      this.profileForm.reset(this.profile);
       this.alertSuccess('Profile has been updated successfully');
     }, (error: any) => {
       this.submittingForm = false;

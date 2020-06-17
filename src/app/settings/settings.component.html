@@ -24,14 +24,14 @@
         <div class="row">
           <form class="outer-form" (ngSubmit)="onSubmit()" #profileForm="ngForm">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 pl-0">
                 <div class="group">
                   <input 
                   type="name" 
                   class="form-control" 
                   placeholder="First Name"
                   name="firstName"
-                  [ngModel]="profile.firstName"
+                  [(ngModel)]="profile.firstName"
                   required
                   minlength="4"
                   maxlength="32"
@@ -47,7 +47,7 @@
                   class="form-control" 
                   placeholder="Last Name"
                   name="lastName"
-                  [ngModel]="profile.lastName"
+                  [(ngModel)]="profile.lastName"
                   required
                   minlength="4"
                   maxlength="32"
@@ -63,7 +63,7 @@
               class="form-control" 
               placeholder="Email"
               name="email"
-              [ngModel]="profile.email"
+              [(ngModel)]="profile.email"
               required
               #email="ngModel" >
               <p class="error-message" *ngIf="email.touched && !email.valid">Invalid Email</p>
@@ -76,7 +76,7 @@
                 name="about"
                 minlength="4"
                 maxlength="255"
-                [ngModel]="profile.about"
+                [(ngModel)]="profile.about"
                 #about="ngModel" >
               </textarea>
               <p class="error-message" *ngIf="about.touched && !about.valid">About must be between 4 - 255 characters</p>
