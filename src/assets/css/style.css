@@ -1541,7 +1541,7 @@ select {
   color: #8e9091;
   line-height: 1.5;
 }
-@media only screen and (min-width: 1040px) {
+/* @media only screen and (min-width: 1040px) {
   .topic-text > *:not(:first-child) {
     margin-top: 24px;
   }
@@ -1550,7 +1550,7 @@ select {
   .topic-text > *:not(:first-child) {
     margin-top: 15px;
   }
-}
+} */
 .topic-info {
   position: relative;
   padding-right: 35px;
