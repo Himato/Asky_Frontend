@@ -122,18 +122,9 @@ p.success-message {
   border-radius: 0.25rem;
   z-index: 1024;
   text-align: center;
-
-  -webkit-animation: slide 0.5s forwards;
-  -webkit-animation-delay: 0s;
+  
   animation: slide 0.5s forwards;
   animation-delay: 0s;
-}
-
-@-webkit-keyframes slide {
-  100% {
-    top: 15%;
-    opacity: 100%;
-  }
 }
 
 @keyframes slide {
