@@ -21,6 +21,7 @@ export class CreateTopicComponent implements OnInit {
   submitting = false;
   succeed = false;
   error: string = null;
+  added = false; // indicates that the navigation is coming from onSubmit
 
   constructor(
     private categoryService: CategoryService,
@@ -53,14 +54,18 @@ export class CreateTopicComponent implements OnInit {
     this.succeed = false;
     this.error = null;
 
+    const content = this.getContent();
+
     if (!!this.topic) {
       this.topicService.updateTopic(
         this.topic.id,
-        this.getContent(),
+        content,
         this.form.value.categoryId
       ).subscribe(() => {
         this.submitting = false;
         this.succeed = true;
+        this.topic.content = content;
+        this.topic.categoryId = this.form.value.categoryId;
       }, (error: any) => {
         this.submitting = false;
         this.error = error.error.message;
@@ -68,10 +73,11 @@ export class CreateTopicComponent implements OnInit {
     } else {
       this.topicService.addTopic(
         this.form.value.title,
-        this.getContent(),
+        content,
         this.form.value.categoryId
       ).subscribe((uri: string) => {
         this.submitting = false;
+        this.added = true;
         this.error = null;
         this.router.navigate(['t', uri]);
       }, (error: any) => {
@@ -107,15 +113,13 @@ export class CreateTopicComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.submitting) {
-      return true;
-    }
-
     const content = this.getContent();
 
-    if (!!this.topic && (this.topic.categoryId !== this.form.value.categoryId || this.topic.content !== content)) {
-      return window.confirm('Do you want to discard the changes?');
-    } else if (!this.topic && content !== '') {
+    if (!!this.topic) {
+      if (this.topic.categoryId !== this.form.value.categoryId || this.topic.content !== content) {
+        return window.confirm('Do you want to discard the changes?');
+      }
+    } else if (content !== '' && !this.added) {
       return window.confirm('Do you want to discard the changes?');
     }
 
