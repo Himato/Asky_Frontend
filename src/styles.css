@@ -130,7 +130,7 @@ p.success-message {
 @keyframes slide {
   100% {
     top: 15%;
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
