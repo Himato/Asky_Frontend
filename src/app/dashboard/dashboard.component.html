@@ -10,9 +10,11 @@
                 <tr>
                   <th>Name</th>
                   <th>Username</th>
+                  <th>Email</th>
+                  <th>Creation Date</th>
                   <th>No. Of Topics</th>
-                  <th>No. Of Down Votes</th>
                   <th>No. Of Up Votes</th>
+                  <th>No. Of Down Votes</th>
                 </tr>
               </thead>
               <tbody>
@@ -23,6 +25,8 @@
                     <span style="margin-left: 20px;">{{ user.name }}</span>
                   </td>
                   <td><a [routerLink]="[ '/users', user.username ]">{{ user.username }}</a></td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.createdAt | date: 'medium' }}</td>
                   <td>{{ user.numberOfTopics }}</td>
                   <td>{{ user.numberOfUpVotes }}</td>
                   <td>{{ user.numberOfDownVotes }}</td>

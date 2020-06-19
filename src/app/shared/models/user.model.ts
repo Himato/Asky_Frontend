@@ -44,6 +44,8 @@ export class Profile {
 export class AdminUser {
   name: string;
   username: string;
+  email: string;
+  createdAt: Date;
   imageUri: string;
   numberOfTopics: string;
   numberOfUpVotes: string;
